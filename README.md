@@ -16,8 +16,8 @@ Inspired by prior research on linguistic complexity and investor behavior:
 ## ⚙️ Project Pipeline 
 
 1. **📥 Data Collection**  
-   - Earnings call transcripts (SeekingAlpha / Kaggle)  
-   - Historical stock prices (Yahoo Finance)  
+   - Earnings call transcripts (discountingcashflows.com (PDF))
+   - Historical stock prices (Yahoo Finance)
 
 2. **🧹 Preprocessing**  
    - Clean transcripts (remove speaker labels, punctuation, stopwords)  
