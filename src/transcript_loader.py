@@ -11,7 +11,7 @@ class TranscriptLoader:
     def __init__(self, cleaned_dir: str = "../data/transcripts/cleaned"):
         """
         Args:
-        - cleaned_dir: Path to folder containing cleaned transcripts
+            cleaned_dir: Path to folder containing cleaned transcripts
         """
         self.cleaned_dir = cleaned_dir
 
@@ -20,7 +20,7 @@ class TranscriptLoader:
         Load all transcripts and return a DataFrame.
 
         Returns:
-        - df: pandas DataFrame with columns ['ticker', 'date', 'transcript']
+            df: pandas DataFrame with columns ['ticker', 'date', 'transcript']
         """
         records = []
 
