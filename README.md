@@ -17,7 +17,7 @@ Inspired by prior research on linguistic complexity and investor behavior:
 
 1. **📥 Data Collection**  
    - Earnings call transcripts (discountingcashflows.com (PDF))
-   - Historical stock prices (Yahoo Finance)
+   - Historical stock close prices (Stooq via pandas_datareader)
 
 2. **🧹 Preprocessing**  
    - Clean transcripts (remove speaker labels, punctuation, stopwords)  
