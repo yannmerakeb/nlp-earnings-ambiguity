@@ -3,7 +3,7 @@ import logging
 import pandas_datareader.data as web
 import datetime as dt
 import os
-from transcript_loader import TranscriptLoader
+from src.transcript_preprocessor import TranscriptPreprocessor
 
 class SpotDownloader:
     """
@@ -64,12 +64,23 @@ class SpotDownloader:
                 failed_tickers.append(ticker)
 
         if all_prices:
-            # Concatenate all DataFrames and save to CSV
+            # Concatenate all DataFrames
             prices_df = pd.concat(all_prices, ignore_index=True)
-            prices_df = prices_df.dropna(subset=["date"]).sort_values(["ticker", "date"]).reset_index(drop=True)
+            prices_df = prices_df.dropna(subset=["date"]).sort_values(by="date", ascending=True).reset_index(drop=True)
+
+            prices_df['date'] = pd.Series(prices_df['date'].dt.to_pydatetime())
+            prices_df["return_1d"] = prices_df.groupby('ticker')['close'].transform(lambda x: x.pct_change())
+            prices_df['return_1d_next'] = prices_df.groupby('ticker')['return_1d'].transform(lambda x: x.shift(1))
+            # Pivot to have tickers as columns
+            # prices_df = pd.pivot_table(prices_df, values='close', index='date', columns='ticker')
+            # Compute daily returns
+            # returns_df = prices_df.pct_change().reset_index()
+
+            # Save to CSV
             filename = f"{self.start_date.strftime('%Y-%m-%d')}_{self.end_date.strftime('%Y-%m-%d')}.csv"
             filepath = os.path.join(self.output_dir, filename)
             prices_df.to_csv(filepath, index=False)
+            # prices_df.to_csv(filepath, index=False)
             print(f"Prices for all tickers saved to {filepath}")
         else:
             # No prices were downloaded
@@ -80,8 +91,8 @@ class SpotDownloader:
 
 if __name__ == "__main__":
     # Load tickers from transcripts
-    loader = TranscriptLoader()
-    df_transcripts = loader.load_all()
+    loader = TranscriptPreprocessor()
+    df_transcripts = loader.load_transcripts()
     tickers = df_transcripts['ticker'].unique().tolist()
 
     # Define date range

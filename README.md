@@ -57,8 +57,10 @@ Inspired by prior research on linguistic complexity and investor behavior:
 nlp-earnings-ambiguity/
 │
 ├── data/
-│ ├── transcripts.csv
-│ ├── prices.csv
+│ ├── transcripts
+│   ├── preprocessed
+│   ├── raw
+│ ├── spot
 │
 ├── notebooks/ # Jupyter notebooks for prototyping
 │ ├── 01_data_cleaning.ipynb
@@ -66,8 +68,8 @@ nlp-earnings-ambiguity/
 │ ├── 03_backtest.ipynb
 │
 ├── src/ # modular scripts
-│ ├── text_cleaner.py   # TranscriptCleaner class
-│ ├── data_loader.py    # Load cleaned transcripts into DataFrame
+│ ├── transcript_preprocessor.py   # TranscriptPreprocessor class
+│ ├── transcript_loader.py    # Load cleaned transcripts into DataFrame
 │ ├── feature_extractor.py # Extract linguistic features
 │ ├── backtester.py     # Extract NLP features and ambiguity scores
 │
